@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="RottenTomatoXamarinForm.MainView" x:Name="TabBar">
+	<TabbedPage.Children>
+		<ContentPage Title="Movies" Icon="movie.png">
+			<ContentPage.Padding>
+				<OnPlatform x:TypeArguments="Thickness" iOS="0,30,0,0" Android="0" />
+			</ContentPage.Padding>
+			<ListView x:Name="MovieListView" CachingStrategy="RecycleElement" RowHeight="180">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<Grid Padding="2">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="0.5*" />
+									<RowDefinition Height="0.5*" />
+								</Grid.RowDefinitions>
+								<Image Source="{Binding posters.thumbnail}" WidthRequest="130" HeightRequest="170" Grid.Column="0" Grid.RowSpan="2" />
+								<StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+									<Image Source="tomato.png" WidthRequest="40" HeightRequest="40"/>
+									<Label Text="{Binding ratings.critics_score}" FontSize="20" VerticalOptions="Center"/>
+								</StackLayout>
+								<StackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+									<Image Source="flixster.png" WidthRequest="40" HeightRequest="40"/>
+									<Label Text="{Binding ratings.audience_score}" FontSize="20" VerticalOptions="Center"/>
+								</StackLayout>
+							</Grid>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</ContentPage>
+		<ContentPage Title="DVD" Icon="dvd.png">
+			<ContentPage.Padding>
+				<OnPlatform x:TypeArguments="Thickness" iOS="0,30,0,0" Android="0" />
+			</ContentPage.Padding>
+			<ListView x:Name="DVDListView">
+			</ListView>
+		</ContentPage>
+		<ContentPage Title="Search" Icon="Search.png">
+			<ContentPage.Padding>
+				<OnPlatform x:TypeArguments="Thickness" iOS="0,30,0,0" Android="0" />
+			</ContentPage.Padding>
+		</ContentPage>
+	</TabbedPage.Children>
+</TabbedPage>
