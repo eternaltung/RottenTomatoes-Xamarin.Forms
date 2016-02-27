@@ -12,9 +12,9 @@ namespace RottenTomatoXamarinForm.Util
     {
         public static async Task<List<Movie>> GetMovieData(string url)
         {
-            HttpClient client = new HttpClient();
-            var json = await client.GetStringAsync(url);
-            return JsonConvert.DeserializeObject<MovieModel>(json).movies;
+			HttpClient client = new HttpClient();
+			var json = await client.GetStringAsync(url);
+			return JsonConvert.DeserializeObject<MovieModel>(json).movies;
         }
     }
 

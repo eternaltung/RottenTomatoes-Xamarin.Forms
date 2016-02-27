@@ -1,31 +1,34 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="RottenTomatoXamarinForm.MainView" x:Name="TabBar">
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="RottenTomatoXamarinForm.MainView" x:Name="TabBar" CurrentPageChanged="TabPageChanged">
 	<TabbedPage.Children>
 		<ContentPage Title="Movies" Icon="movie.png">
 			<ContentPage.Padding>
-				<OnPlatform x:TypeArguments="Thickness" iOS="0,30,0,0" Android="0" />
+				<OnPlatform x:TypeArguments="Thickness" iOS="0,0,0,5" Android="0" />
 			</ContentPage.Padding>
-			<ListView x:Name="MovieListView" CachingStrategy="RecycleElement" RowHeight="180">
+			<ListView x:Name="MovieListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected">
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<ViewCell>
-							<Grid Padding="2">
+							<Grid Padding="3.5">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" />
 									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
-									<RowDefinition Height="0.5*" />
-									<RowDefinition Height="0.5*" />
+									<RowDefinition Height="0.3*" />
+									<RowDefinition Height="0.35*" />
+									<RowDefinition Height="0.35*" />
 								</Grid.RowDefinitions>
-								<Image Source="{Binding posters.thumbnail}" WidthRequest="130" HeightRequest="170" Grid.Column="0" Grid.RowSpan="2" />
-								<StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-									<Image Source="tomato.png" WidthRequest="40" HeightRequest="40"/>
-									<Label Text="{Binding ratings.critics_score}" FontSize="20" VerticalOptions="Center"/>
+								<Image Source="{Binding posters.thumbnail}" WidthRequest="130" HeightRequest="170" Grid.Column="0" Grid.RowSpan="3" />
+								<Label FontSize="24" FontAttributes="Bold" Text="{Binding title}" Grid.Column="1" Grid.Row="0" VerticalOptions="Center"/>
+								<StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" VerticalOptions="Center">
+									<Image Source="tomato.png" WidthRequest="40" HeightRequest="40" />
+									<Label Text="{Binding ratings.critics_score,StringFormat='{0}%'}" FontSize="22" VerticalOptions="Center" FontAttributes="Bold" />
 								</StackLayout>
-								<StackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-									<Image Source="flixster.png" WidthRequest="40" HeightRequest="40"/>
-									<Label Text="{Binding ratings.audience_score}" FontSize="20" VerticalOptions="Center"/>
+								<StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" VerticalOptions="Center">
+									<Image Source="flixster.png" WidthRequest="40" HeightRequest="40" />
+									<Label Text="{Binding ratings.audience_score,StringFormat='{0}%'}" FontSize="22" VerticalOptions="Center" FontAttributes="Bold" />
 								</StackLayout>
 							</Grid>
 						</ViewCell>
