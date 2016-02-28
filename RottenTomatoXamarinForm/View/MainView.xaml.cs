@@ -10,30 +10,31 @@ namespace RottenTomatoXamarinForm
 	public partial class MainView : TabbedPage
 	{
         const string apikey = "";
-		List<Movie> movies;
+		List<Movie> movies, dvds, searchData;
 
 		public MainView ()
 		{
 			InitializeComponent ();
-			Title = "Box Office";
-			UpdateUI($"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey={apikey}&limit=20");
 		}
 
-		private async void UpdateUI(string url)
-        {
-			movies = await Util.Utility.GetMovieData(url);
-            MovieListView.ItemsSource = movies;
-            
-        }
-
-		private void TabPageChanged(object sender, EventArgs e)
+		private async void TabPageChanged(object sender, EventArgs e)
 		{
 			switch (this.CurrentPage.Title) {
 			case "Movies":
 				this.Title = "Box Office";
+				if (movies == null) 
+					movies = await Util.Utility.GetMovieData($"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey={apikey}&limit=20");
+				MovieListView.ItemsSource = movies;
+				MovieProgress.IsRunning = false;
+				searchData = movies; 
 				break;
 			case "DVD":
 				this.Title = "DVD Top Rentals";
+				if (dvds == null) 
+					dvds = await Util.Utility.GetMovieData($"http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey={apikey}&limit=20");
+				DVDListView.ItemsSource = dvds;
+				DVDProgress.IsRunning = false;
+				searchData = dvds;
 				break;
 			case "Search":
 				this.Title = "Search";
