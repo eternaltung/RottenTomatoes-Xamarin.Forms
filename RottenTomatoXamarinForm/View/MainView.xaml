@@ -35,7 +35,8 @@
 				<OnPlatform x:TypeArguments="Thickness" iOS="0,0,0,0" Android="0" />
 			</ContentPage.Padding>
 			<Grid>
-				<ListView x:Name="MovieListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" ItemTemplate="{StaticResource ListItemTemplate}" SeparatorVisibility="None">
+				<ListView x:Name="MovieListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" 
+					ItemTemplate="{StaticResource ListItemTemplate}" SeparatorVisibility="None" IsPullToRefreshEnabled="true" Refreshing="PullRefreshData">
 				</ListView>
 				<ActivityIndicator x:Name="MovieProgress" IsRunning="true" VerticalOptions="Center" HorizontalOptions="Center" />
 			</Grid>
@@ -45,7 +46,8 @@
 				<OnPlatform x:TypeArguments="Thickness" iOS="0,0,0,0" Android="0" />
 			</ContentPage.Padding>
 			<Grid>
-				<ListView x:Name="DVDListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" ItemTemplate="{StaticResource ListItemTemplate}" SeparatorVisibility="None">
+				<ListView x:Name="DVDListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" 
+					ItemTemplate="{StaticResource ListItemTemplate}" SeparatorVisibility="None" IsPullToRefreshEnabled="true" Refreshing="PullRefreshData">
 				</ListView>
 				<ActivityIndicator x:Name="DVDProgress" IsRunning="true" VerticalOptions="Center" HorizontalOptions="Center" />
 			</Grid>

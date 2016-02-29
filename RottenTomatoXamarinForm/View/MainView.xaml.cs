@@ -20,29 +20,36 @@ namespace RottenTomatoXamarinForm
 
 		private async void TabPageChanged(object sender, EventArgs e)
 		{
-			switch (this.CurrentPage.Title) {
-			case "Movies":
-				this.Title = "Box Office";
-				if (movies == null) 
-					movies = await Util.Utility.GetMovieData($"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey={apikey}&limit=20");
-				MovieListView.ItemsSource = movies;
-				MovieProgress.IsRunning = false;
-				searchData = movies; 
-				break;
-			case "DVD":
-				this.Title = "DVD Top Rentals";
-				if (dvds == null) 
-					dvds = await Util.Utility.GetMovieData($"http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey={apikey}&limit=20");
-				DVDListView.ItemsSource = dvds;
-				DVDProgress.IsRunning = false;
-				searchData = dvds;
-				break;
-			case "Search":
-				this.Title = "Search";
-				SearchTextBox.Text = "";
-				filterData = searchData;
-				SearchListView.ItemsSource = filterData;
-				break;
+			try 
+			{
+				switch (this.CurrentPage.Title) {
+				case "Movies":
+					this.Title = "Box Office";
+					if (movies == null) 
+						movies = await Util.Utility.GetMovieData($"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey={apikey}&limit=20");
+					MovieListView.ItemsSource = movies;
+					MovieProgress.IsRunning = false;
+					searchData = movies; 
+					break;
+				case "DVD":
+					this.Title = "DVD Top Rentals";
+					if (dvds == null) 
+						dvds = await Util.Utility.GetMovieData($"http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey={apikey}&limit=20");
+					DVDListView.ItemsSource = dvds;
+					DVDProgress.IsRunning = false;
+					searchData = dvds;
+					break;
+				case "Search":
+					this.Title = "Search";
+					SearchTextBox.Text = "";
+					filterData = searchData;
+					SearchListView.ItemsSource = filterData;
+					break;
+				}
+			} 
+			catch (Exception) 
+			{
+				
 			}
 		}
 
@@ -76,6 +83,24 @@ namespace RottenTomatoXamarinForm
 				filterData = searchData.Where(x => x.title.ToLower().StartsWith(e.NewTextValue.ToLower())).ToList();
 			
 			SearchListView.ItemsSource = filterData;
+		}
+
+		private void PullRefreshData(object sender, EventArgs e) 
+		{
+			switch (this.CurrentPage.Title) {
+			case "Movies":
+				movies = null;
+				MovieListView.ItemsSource = null;
+				TabPageChanged(null,null);
+				MovieListView.IsRefreshing = false;
+				break;
+			case "DVD":
+				dvds = null;
+				DVDListView.ItemsSource = null;
+				TabPageChanged(null,null);
+				DVDListView.IsRefreshing = false;
+				break;
+			}
 		}
 	}
 }
