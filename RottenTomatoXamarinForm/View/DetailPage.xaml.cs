@@ -23,9 +23,6 @@ namespace RottenTomatoXamarinForm
 			this.Title = movie.title;
 			TitleLabel.Text = $"{movie.title}({movie.year}) {movie.runtime}mins";
 			DescLabel.Text = movie.synopsis;
-			//DetailView.HeightRequest = 300;
-			//DetailView.BackgroundColor = Color.Gray;
-			//DetailView.Opacity = 0.8;
 			DetailView.TranslationY = defaultTranslateY;
 
 			this.BackGroundImg.Source = new UriImageSource () {
@@ -56,8 +53,6 @@ namespace RottenTomatoXamarinForm
 				if (DetailView.TranslationY > 150)
 					DetailView.TranslationY = 150;
 			}
-
-
 		}
 
 		/// <summary>

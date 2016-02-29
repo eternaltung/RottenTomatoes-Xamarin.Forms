@@ -14,7 +14,7 @@
 							<RowDefinition Height="0.35*" />
 							<RowDefinition Height="0.35*" />
 						</Grid.RowDefinitions>
-						<Image Source="{Binding posters.thumbnail}" WidthRequest="130" HeightRequest="170" Grid.Column="0" Grid.RowSpan="3" />
+						<Image Source="{Binding posters.thumbnail}" WidthRequest="130" HeightRequest="170" Grid.Column="0" Grid.RowSpan="3" PropertyChanged="ImgPropertyChanged"/>
 						<Label FontSize="24" FontAttributes="Bold" Text="{Binding title}" Grid.Column="1" Grid.Row="0" VerticalOptions="Center" />
 						<StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" VerticalOptions="Center">
 							<Image Source="tomato.png" WidthRequest="40" HeightRequest="40" />
@@ -35,7 +35,7 @@
 				<OnPlatform x:TypeArguments="Thickness" iOS="0,0,0,0" Android="0" />
 			</ContentPage.Padding>
 			<Grid>
-				<ListView x:Name="MovieListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" ItemTemplate="{StaticResource ListItemTemplate}">
+				<ListView x:Name="MovieListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" ItemTemplate="{StaticResource ListItemTemplate}" SeparatorVisibility="None">
 				</ListView>
 				<ActivityIndicator x:Name="MovieProgress" IsRunning="true" VerticalOptions="Center" HorizontalOptions="Center" />
 			</Grid>
@@ -45,17 +45,18 @@
 				<OnPlatform x:TypeArguments="Thickness" iOS="0,0,0,0" Android="0" />
 			</ContentPage.Padding>
 			<Grid>
-				<ListView x:Name="DVDListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" ItemTemplate="{StaticResource ListItemTemplate}">
+				<ListView x:Name="DVDListView" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" ItemTemplate="{StaticResource ListItemTemplate}" SeparatorVisibility="None">
 				</ListView>
 				<ActivityIndicator x:Name="DVDProgress" IsRunning="true" VerticalOptions="Center" HorizontalOptions="Center" />
 			</Grid>
 		</ContentPage>
 		<ContentPage Title="Search" Icon="Search.png">
-			<ContentPage.Padding>
-				<OnPlatform x:TypeArguments="Thickness" iOS="0,30,0,0" Android="0" />
-			</ContentPage.Padding>
-			<Grid>
-			</Grid>
+			<StackLayout>
+				<SearchBar Placeholder="Search..." TextChanged="SearchChanged" x:Name="SearchTextBox"/>
+				<ListView x:Name="SearchListView" ItemTemplate="{StaticResource ListItemTemplate}" CachingStrategy="RecycleElement" RowHeight="180" ItemSelected="MovieListViewSelected" SeparatorVisibility="None">
+					
+				</ListView>
+			</StackLayout>
 		</ContentPage>
 	</TabbedPage.Children>
 </TabbedPage>

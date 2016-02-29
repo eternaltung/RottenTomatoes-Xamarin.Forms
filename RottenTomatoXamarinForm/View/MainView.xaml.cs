@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -10,7 +11,7 @@ namespace RottenTomatoXamarinForm
 	public partial class MainView : TabbedPage
 	{
         const string apikey = "";
-		List<Movie> movies, dvds, searchData;
+		List<Movie> movies, dvds, searchData, filterData;
 
 		public MainView ()
 		{
@@ -38,7 +39,23 @@ namespace RottenTomatoXamarinForm
 				break;
 			case "Search":
 				this.Title = "Search";
+				SearchTextBox.Text = "";
+				filterData = searchData;
+				SearchListView.ItemsSource = filterData;
 				break;
+			}
+		}
+
+		private void ImgPropertyChanged (object sender, PropertyChangedEventArgs e)
+		{			
+			if (e.PropertyName == "Source")
+			{
+				Image img = ((Image)sender);
+				if (!img.IsLoading) 
+				{
+					img.Opacity = 0;
+					img.FadeTo(1, 1000); 
+				}
 			}
 		}
 
@@ -49,6 +66,16 @@ namespace RottenTomatoXamarinForm
 				await Navigation.PushAsync(new DetailPage(e.SelectedItem as Movie));
 				((ListView)sender).SelectedItem = null;
 			}
+		}
+
+		private void SearchChanged(object sender, TextChangedEventArgs e)
+		{
+			if (e.NewTextValue == null) 
+				filterData = searchData;
+			else
+				filterData = searchData.Where(x => x.title.ToLower().StartsWith(e.NewTextValue.ToLower())).ToList();
+			
+			SearchListView.ItemsSource = filterData;
 		}
 	}
 }
