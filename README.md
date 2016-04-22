@@ -10,3 +10,7 @@ This is a movies app displaying box office and top rental DVDs using the [Rotten
 	```csharp	
 	const string apikey = "your key";		
 	```
+	
+
+## ScreenShot
+<img src="screenshot.gif" alt="screenshot" width="350"/>
